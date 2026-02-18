@@ -17,20 +17,30 @@ cp -R ~/.agents/skills ".draft/${DATE}-skills"
 diff -ruN ".draft/${DATE}-skills" skills
 ```
 
-3. 差分内容を基に、Codex に `skills/` へのマージを依頼する。
+3. 差分内容を基に、Codex とユーザーで確認を取りつつ `skills/` へマージする。
 
-4. マージ後、変更内容をレビューする。
+4. マージ時にスキルを整理する。
+   - 不要な skill を削除する。
+   - 重複や類似 skill を統合する。
+   - skill ディレクトリ名と構成を整える（各 skill に `SKILL.md` があることを確認する）。
+
+5. マージ後、変更内容をレビューする。
 ```sh
 git status --short
 git diff
 ```
 
-5. このリポジトリの `skills/` を `~/.agents/skills` に完全反映する。
+6. このリポジトリの `skills/` を `~/.agents/skills` に完全反映する。
 ```sh
 rsync -a --delete skills/ "$HOME/.agents/skills/"
 ```
 
-6. 反映後に一致確認する。
+7. 反映後に一致確認する。
 ```sh
 diff -ruN skills "$HOME/.agents/skills"
+```
+
+8. 作業完了後にドラフトを削除する。
+```sh
+rm -rf ".draft/${DATE}-skills"
 ```
